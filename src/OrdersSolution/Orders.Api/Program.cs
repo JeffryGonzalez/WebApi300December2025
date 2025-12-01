@@ -7,6 +7,7 @@ using Wolverine;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseWolverine(); // add a few services, one in particular is IMessageBus.
+var db2ConnectionString = builder.Configuration.GetConnectionString("db2");
 
 
 builder.Services.ConfigureHttpJsonOptions(options =>
