@@ -54,8 +54,11 @@ public record ShoppingCartRequest : IValidatableObject
     }
 }
 
-public record Order
+public enum OrderStatus {  Received, Processing, Complete, Failed}; // etc. etc.
+public record OrderResponse
 {
     public Guid Id { get; set; }
-    public decimal Total { get; set; }
+
+    public OrderStatus Status { get; set; }
+    
 }
