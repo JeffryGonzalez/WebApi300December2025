@@ -19,6 +19,9 @@ public static class Post
 
         //await messageBus.InvokeAsync(command) - This is synchronous. Find the handler, and don't do anything until it returns. Good if it is going to return something.
         await messageBus.PublishAsync(new ProcessOrder(orderId, request));
+        // awaiting that this has been published, not that it has been handled.
+
+        
 
 
 
