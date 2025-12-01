@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
     "customerName": "jeff G",
-    "amount": 500
+    "amount": 13
 }
 
 

@@ -13,6 +13,10 @@ public class OrdersHandler(ILogger<OrdersHandler> logger)
 
     public async Task HandleAsync(ProcessOrder command)
     {
+        //if(command.Cart.Amount % 2 != 0)
+        //{
+        //    throw new Exception("Can only process even numbers");
+        //}
         await Task.Delay(2000);
         logger.LogInformation("Got an order! For {show}, amount: {amt:c}", 
             command.Cart.CustomerName, command.Cart.Amount);

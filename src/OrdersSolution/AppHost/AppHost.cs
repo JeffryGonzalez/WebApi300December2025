@@ -25,7 +25,6 @@ var ordersApi = builder.AddProject<Projects.Orders_Api>("ordersapi")
     .WithReference(ordersDb)
     .WithEnvironment("identity", () => identity.GetEndpoint("http").Url)
     .WaitFor(ordersDb)
-    .WaitFor(identity)
-    ; // don't start this until the database is ready.
+    .WaitFor(identity);
 
 builder.Build().Run();
