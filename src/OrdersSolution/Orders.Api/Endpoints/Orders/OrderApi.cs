@@ -1,6 +1,5 @@
 ﻿using Orders.Api.Endpoints.Orders.Operation;
 using Orders.Api.Endpoints.Orders.Services;
-
 using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
@@ -33,12 +32,26 @@ public static class OrderApi
     }
 }
 
-public record ShoppingCartRequest
+public record ShoppingCartRequest : IValidatableObject
 {
+    [Required, Range(1, 3000)]
     public decimal Amount { get; set; }
 
     [Required, MinLength(3), MaxLength(100)]
     public string CustomerName { get; set; } = string.Empty;
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        string customerName = CustomerName.ToLowerInvariant().Trim();
+        if (customerName == "jeff gonzalez" && Amount > 10M)
+        {
+            yield return new ValidationResult("Jeff Is a mooch and can't buy that much");
+        }
+        if(customerName.Contains("vader") && Amount > 500)
+        {
+            yield return new ValidationResult("Sith Lords Not To Be Trusted");
+        }
+    }
 }
 
 public record Order

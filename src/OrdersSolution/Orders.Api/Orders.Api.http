@@ -8,7 +8,7 @@ POST https://localhost:4000/orders
 Content-Type: application/json 
 
 {
-    "customerName": "Jeff G",
+    "customerName": "jeff Gonzalez",
     "amount": 500
 }
 
