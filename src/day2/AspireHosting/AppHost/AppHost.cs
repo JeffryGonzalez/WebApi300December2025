@@ -3,12 +3,13 @@ using Scalar.Aspire;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
-#region Ambient Services
+#region Ambient Services (Services that are developer environment stuff)
 var postgres = builder.AddPostgres("postgres")
     .WithLifetime(ContainerLifetime.Persistent)
     .WithImage("postgres:17.5"); // You can use "custom" images too.
 
 
+// in "production" will be your "real" identity server.
 var identity = builder.AddMockOidcDevelopmentServer();
 
 #endregion
@@ -51,5 +52,20 @@ var ordersApi = builder.AddProject<Projects.Orders_Api>("ordersapi")
 scalarApis.WithApiReference(ordersApi, options => { options.AddDocument("orders.v1", "Order Processing API"); });
 #endregion
 
+#region Products.Api
+var productsDb = postgres.AddDatabase("products"); // going to use my own database for this.
+
+var productsApi = builder.AddProject<Projects.Products_Api>("productsapi")
+    .WithReference(productsDb)
+    .WithEnvironment("identity", () => identity.GetEndpoint("http").Url)
+    .WithIdentityOpenIdAuthority(identity)
+    .WithIdentityOpenIdBearer(identity)
+    .WaitFor(productsDb)
+    .WaitFor(identity);
+
+scalarApis.WithApiReference(productsApi, options => { options.AddDocument("products.v1", "Product Management API"); });
+
 #endregion
+#endregion
+
 builder.Build().Run();

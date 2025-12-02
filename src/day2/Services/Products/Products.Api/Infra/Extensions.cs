@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Wolverine;
 using Wolverine.Marten;
 
-namespace Orders.Api.Infra;
+namespace Products.Api.Infra;
 
 public static class Extensions
 {
@@ -54,8 +54,6 @@ public static class Extensions
         /// <returns></returns>
         public WebApplicationBuilder AddDevelopmentOpenApiGeneration(string apiName, string apiVersion)
         {
-
-            // openapi/orders.v1
             if (!builder.Environment.IsDevelopment()) return builder;
             var baseVersion = $"{apiName}.{apiVersion}";
     
@@ -73,7 +71,7 @@ public static class Extensions
         public WebApplication MapOpenApiForDevelopment()
         {
             if (!app.Environment.IsDevelopment()) return app;
-            app.UseCors(CorsPolicyName); // Cross Origin Resource Sharing - Browser Restriction
+            app.UseCors(CorsPolicyName);
 
             app.MapOpenApi("/openapi/{documentName}.json").AllowAnonymous();
 
@@ -97,8 +95,6 @@ public static class Extensions
 
         public IServiceCollection AddAuthorizationAndPolicies()
         {
-            // only some people can do some operations, others can do others.
-
             return services.AddAuthorization();
         }
     }

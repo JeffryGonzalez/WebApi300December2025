@@ -18,8 +18,12 @@ public static class ShoppingAppHostExtensions
             return identity;
         }
     }
+
+    // a project resource is when we do "builder.AddProject<Projects.SomeApi>("bbb");
     extension(IResourceBuilder<ProjectResource> builder)
     {
+
+       
         public IResourceBuilder<ProjectResource> WithIdentityOpenIdAuthority(
             IResourceBuilder<ContainerResource> identity)
         {
