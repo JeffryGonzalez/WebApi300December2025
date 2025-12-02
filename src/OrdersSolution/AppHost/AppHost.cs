@@ -1,3 +1,6 @@
+using Aspire.Hosting.Yarp;
+using Aspire.Hosting.Yarp.Transforms;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 // My Environment
@@ -26,5 +29,23 @@ var ordersApi = builder.AddProject<Projects.Orders_Api>("ordersapi")
     .WithEnvironment("identity", () => identity.GetEndpoint("http").Url)
     .WaitFor(ordersDb)
     .WaitFor(identity);
+
+var productsApi = builder.AddProject<Projects.Products_Api>("products-api");
+
+var usersApi = builder.AddProject<Projects.Users_Api>("users-api");
+// To get into my app, you go to the endpoint for this - and it directs the requests to the appropriate service
+
+var gateway = builder.AddYarp("gateway")
+    .WithReference(ordersApi)
+    .WithReference(productsApi)
+    .WithReference(usersApi)
+    .WithConfiguration(routes =>
+    {
+        routes.AddRoute("/users", usersApi).WithTransformPathRemovePrefix("/users");
+        routes.AddRoute("/products", productsApi).WithTransformPathRemovePrefix("/products");
+        routes.AddRoute("/{*catchall}", ordersApi);
+    });
+
+
 
 builder.Build().Run();

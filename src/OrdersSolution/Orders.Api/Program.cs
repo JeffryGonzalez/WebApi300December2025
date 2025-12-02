@@ -1,6 +1,8 @@
 using Marten;
+using Orders.Api.Endpoints.Cart;
 using Orders.Api.Endpoints.Orders;
 using Orders.Api.Endpoints.Orders.Operation;
+
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Wolverine;
@@ -51,6 +53,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapOrders(); // This will add all the operations for the "/orders" resource.
+app.MapCart();
+
+
 app.MapDefaultEndpoints(); // again, from OrdersServiceDefaults
 
 app.Run();

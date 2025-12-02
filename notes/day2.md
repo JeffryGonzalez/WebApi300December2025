@@ -19,6 +19,10 @@ Password is whatever you set it to.
 - Get you all set up with the code.
 
 - Refactoring to Microservices
-
+    - Why?
+    - How?
+    - Api Gateways are your key to success. SUPER POWER.
+    - Introduce the BFF Pattern.
+    
 - Messaging
 
