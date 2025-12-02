@@ -5,10 +5,16 @@ using Wolverine;
 
 namespace Products.Api.Endpoints.Operations;
 
+// mapping is going from a -> b
+// get a postcreaterequest -> command -> postcreateresponse
 
 
+
+// ProductCreateRequest has to be used to create the CreateProduct command.
 [Facet(typeof(CreateProduct), exclude: ["Id"])]
 public partial record ProductCreateRequest;
+
+
 
 [Facet(typeof(CreateProduct))]
 public partial record ProductCreateResponse
