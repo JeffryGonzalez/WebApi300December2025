@@ -1,4 +1,6 @@
 ﻿using Facet;
+using ImTools;
+using Marten;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Products.Api.Endpoints.Handlers;
 using Wolverine;
@@ -22,6 +24,12 @@ public partial record ProductCreateResponse
     public string Status => "Pending";
 }
 
+[Facet(typeof(AdjustProductInventory))]
+public partial record AdjustProductInventoryRequest;
+
+[Facet(typeof(AdjustProductInventory))]
+public partial record AdjustProductInventoryResponse;
+
 
 public static class PostProduct
 {
@@ -33,5 +41,21 @@ public static class PostProduct
         var command = new CreateProduct(Guid.NewGuid(), request.Name, request.Price, request.Qty);
         await messaging.PublishAsync( command );
         return TypedResults.Ok(new ProductCreateResponse(command));
+    }
+
+    // POST /products/{id}/inventory-adjustments
+    public static async Task<IResult> AdjustProductInventory(
+        Guid id, 
+        AdjustProductInventoryRequest request,
+        IMessageBus messageBus
+        )
+    {
+        // Who can do this? (Authn/authz)
+        // can't do to something that doesn't exist, etc.
+        // check to see if we have a product with that id, if not, return a 404.
+        // Also, the version thing... but I'll come back to that.
+        var command = new AdjustProductInventory(request.Id, request.Version, request.newQty);
+        await messageBus.PublishAsync(command);
+        return TypedResults.Accepted($"/products/{id}");
     }
 }

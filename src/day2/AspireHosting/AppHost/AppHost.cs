@@ -4,6 +4,7 @@ using Scalar.Aspire;
 var builder = DistributedApplication.CreateBuilder(args);
 
 #region Ambient Services (Services that are developer environment stuff)
+// this is a classroom concession to show stuff.
 var username = builder.AddParameter("username", "user");
 var password = builder.AddParameter("password", "password");
 var postgres = builder.AddPostgres("postgres",  username, password, port: 5432)

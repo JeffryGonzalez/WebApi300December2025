@@ -7,7 +7,7 @@ namespace Products.Api.Endpoints.Handlers;
 // a command can come from 1+ sources, but is always handled by one bit of code. The handler.
 
 public record CreateProduct(Guid Id, string Name, decimal Price, int Qty);
-
+public record AdjustProductInventory(Guid Id, int Version, int newQty); // talk about this, too.
 
 public class ProductsHandler
 {
@@ -22,6 +22,13 @@ public class ProductsHandler
         
      //   session.Events.Append(command.CreatedBy, ...);
         
+        await session.SaveChangesAsync();
+    }
+
+    public async Task HandleAsync(AdjustProductInventory command, IDocumentSession session)
+    {
+        // You COULD do more validation here - 
+        session.Events.Append(command.Id, new ProductQtyInventoryAdjusted(command.newQty));
         await session.SaveChangesAsync();
     }
 }

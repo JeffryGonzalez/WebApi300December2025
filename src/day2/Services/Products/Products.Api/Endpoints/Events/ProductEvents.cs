@@ -10,6 +10,6 @@ public record ProductCreated(Guid Id, string Name, decimal Price, int Qty);
 
 public record ProductPriceAdjusted(decimal NewPrice);
 
-public record ProductQtyInventoryAdjusted(decimal NewQty);
+public record ProductQtyInventoryAdjusted(int NewQty);
 
 public record ProductDiscontinued();

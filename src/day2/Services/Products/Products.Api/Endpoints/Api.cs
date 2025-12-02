@@ -21,6 +21,8 @@ public static class ApiExtensions
 
             var group = builder.MapGroup("/products");
             group.MapPost("/", PostProduct.AddProductToInventoryAsync);
+            group.MapPost("/{id:guid}/inventory-adjustments", PostProduct.AdjustProductInventory);
+            group.MapGet("/{id:guid}", GetProduct.GetProductByIdAsync);
             return builder;
         }
     }
