@@ -20,6 +20,11 @@ public static class ApiExtensions
         {
 
             var group = builder.MapGroup("/products");
+            group.MapGet("/{id:guid}/inventory-change-history",
+                GetProduct.GetProductInventoryChangeHistoryAsync);
+            // .RequireAuthorization("Managers");
+
+            group.MapDelete("/{id:guid}", DeleteProduct.DeleteByIdAsync);
             group.MapPost("/", PostProduct.AddProductToInventoryAsync);
             group.MapPost("/{id:guid}/inventory-adjustments", PostProduct.AdjustProductInventory);
             group.MapGet("/{id:guid}", GetProduct.GetProductByIdAsync);

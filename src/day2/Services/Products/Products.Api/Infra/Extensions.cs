@@ -1,6 +1,8 @@
 using System.Reflection;
 using Marten;
+using Marten.Events.Projections;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Products.Api.Endpoints.ReadModels;
 using Wolverine;
 using Wolverine.Marten;
 
@@ -20,12 +22,20 @@ public static class Extensions
             {
                 options.Policies.AutoApplyTransactions();
                 options.Policies.AutoApplyTransactions();
-            });
+            }); // have to change the mode for this.
 
-            builder.Services.AddMarten(options => { })
+            builder.Services.AddMarten(options =>
+            {
+                // at some point I'm going to have to create a script for the database.
+                options.Projections.Snapshot<ProductDetails>(SnapshotLifecycle.Inline);
+                options.Projections.Snapshot<InventoryChangeReport>(SnapshotLifecycle.Async);
+            })
                 .UseNpgsqlDataSource()
                 .UseLightweightSessions()
-                .IntegrateWithWolverine();
+                .IntegrateWithWolverine()
+                .AddAsyncDaemon(JasperFx.Events.Daemon.DaemonMode.Solo); // turns on the background worker
+
+
             return builder;
         }
 

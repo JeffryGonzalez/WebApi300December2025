@@ -50,6 +50,13 @@ public static class PostProduct
         IMessageBus messageBus
         )
     {
+
+        // get the current version from the database, or whatever, if it doesn't match,
+        // return an error (Http Conflict usually)
+        // I have a product with a qty of 200. It is version 88.
+        // I get a post to here that says change the qty to 12, but they send me the version 
+        // they are working from (85, or whatever)
+        // Compare the two. You can't change that.
         // Who can do this? (Authn/authz)
         // can't do to something that doesn't exist, etc.
         // check to see if we have a product with that id, if not, return a 404.

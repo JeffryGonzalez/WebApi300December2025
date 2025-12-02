@@ -38,5 +38,12 @@ public record ProductDetails
     public ProductDetails Apply(IEvent<ProductQtyInventoryAdjusted> @event, ProductDetails oldVersion)
     {
         return oldVersion with { Qty = @event.Data.NewQty, DateOfLastInventoryAdjustment = @event.Timestamp };
+
+
+    }
+
+    public void Delete(ProductDiscontinued @event)
+    {
+        // this should no longer be stored.
     }
 }

@@ -11,7 +11,8 @@ public record AdjustProductInventory(Guid Id, int Version, int newQty); // talk 
 
 public class ProductsHandler
 {
-
+    // Create a Product - This could mean many things.. but right now it means there is a new 
+    // stream we want to have access to that is the life history of this product.
     public async Task HandleAsync(CreateProduct command, IDocumentSession session)
     {
         var (id, name,price, qty ) = command;
@@ -19,6 +20,11 @@ public class ProductsHandler
         // When a "thingy" (a stream) is brand new, you use StartStream.
 
         session.Events.StartStream(id, new ProductCreated(id, name, price, qty) );
+
+        // public record productCreated
+        // public record nameset(name)
+        // public record priceSet(price)
+        // public record qtyset(qty)
         
      //   session.Events.Append(command.CreatedBy, ...);
         
