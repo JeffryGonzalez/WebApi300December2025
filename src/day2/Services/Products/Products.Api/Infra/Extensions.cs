@@ -1,4 +1,5 @@
 using System.Reflection;
+using JasperFx.Events.Projections;
 using Marten;
 using Marten.Events.Projections;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -27,7 +28,7 @@ public static class Extensions
             builder.Services.AddMarten(options =>
             {
                 // at some point I'm going to have to create a script for the database.
-                options.Projections.Snapshot<ProductDetails>(SnapshotLifecycle.Inline);
+                options.Projections.Add<ProductReadModelProjection>(ProjectionLifecycle.Live);
                 options.Projections.Snapshot<InventoryChangeReport>(SnapshotLifecycle.Async);
             })
                 .UseNpgsqlDataSource()

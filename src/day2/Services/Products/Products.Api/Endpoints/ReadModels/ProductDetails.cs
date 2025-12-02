@@ -1,4 +1,5 @@
 ﻿using JasperFx.Events;
+using Marten.Events.Aggregation;
 using Products.Api.Endpoints.Events;
 
 namespace Products.Api.Endpoints.ReadModels;
@@ -18,10 +19,18 @@ public record ProductDetails
 
     public bool IsLowInventory => Qty < 10;
     public DateTimeOffset WhenAdded { get; set; }
-
+    public DateTimeOffset? WhenRemoved { get; set; }
     public DateTimeOffset? DateOfLastInventoryAdjustment { get; set; } = null;
-    // Create here means that this even represents the birth of this stream, and should result
-    // in a new read model. 
+   
+}
+
+public class ProductReadModelProjection : SingleStreamProjection<ProductDetails, Guid>
+{
+
+    public ProductReadModelProjection()
+    {
+        DeleteEvent<ProductDiscontinued>();
+    }
     public static ProductDetails Create(IEvent<ProductCreated> @event)
     {
         return new ProductDetails
@@ -33,8 +42,6 @@ public record ProductDetails
             WhenAdded = @event.Timestamp
         };
     }
-
-    // If any events of this type have happened, use this to "apply" that event to this read model.
     public ProductDetails Apply(IEvent<ProductQtyInventoryAdjusted> @event, ProductDetails oldVersion)
     {
         return oldVersion with { Qty = @event.Data.NewQty, DateOfLastInventoryAdjustment = @event.Timestamp };
@@ -42,8 +49,38 @@ public record ProductDetails
 
     }
 
-    public void Delete(ProductDiscontinued @event)
+    
+}
+
+public class ProductReadModelEvenIfDeletedProjection : SingleStreamProjection<ProductDetails, Guid>
+{
+
+    public ProductReadModelEvenIfDeletedProjection()
     {
-        // this should no longer be stored.
+       // DeleteEvent<ProductDiscontinued>();
     }
+    public static ProductDetails Create(IEvent<ProductCreated> @event)
+    {
+        return new ProductDetails
+        {
+            Id = @event.Id,
+            Name = @event.Data.Name,
+            Price = @event.Data.Price,
+            Qty = @event.Data.Qty,
+            WhenAdded = @event.Timestamp,
+
+        };
+    }
+    public ProductDetails Apply(IEvent<ProductQtyInventoryAdjusted> @event, ProductDetails oldVersion)
+    {
+        return oldVersion with { Qty = @event.Data.NewQty, DateOfLastInventoryAdjustment = @event.Timestamp };
+
+
+    }
+    public ProductDetails Apply(IEvent<ProductDiscontinued> @event, ProductDetails oldVersion)
+    {
+        return oldVersion with { WhenRemoved = @event.Timestamp };
+    }
+
+
 }

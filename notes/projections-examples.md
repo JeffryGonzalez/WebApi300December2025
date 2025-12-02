@@ -16,7 +16,7 @@ POST https://localhost:4100/products
 Content-Type: application/json
 
 {
-    "name": "Pizza rolls",
+    "name": "Chocolate Syrup",
     "price": 4.87,
     "qty": 12
 }
@@ -28,7 +28,7 @@ Content-Type: application/json
 ## Get that product
 
 ```http
-GET https://localhost:4100/products/618d78d6-5b1c-473d-abeb-cd1f57f33ce3
+GET https://localhost:4100/products/11bc5680-e298-4905-b9aa-e4e5b04e2845
 Accept: application/json
 
 ```
@@ -37,23 +37,23 @@ Accept: application/json
 
 
 ```http
-POST https://localhost:4100/products/618d78d6-5b1c-473d-abeb-cd1f57f33ce3/inventory-adjustments
+POST https://localhost:4100/products/11bc5680-e298-4905-b9aa-e4e5b04e2845/inventory-adjustments
 Content-Type: application/json
 
 {
-    "id": "618d78d6-5b1c-473d-abeb-cd1f57f33ce3",
-    "newQty": 1,
+    "id": "11bc5680-e298-4905-b9aa-e4e5b04e2845",
+    "newQty": 1200,
     "version": 1
 }
 ```
 
 
 ```http
-GET https://localhost:4100/products/618d78d6-5b1c-473d-abeb-cd1f57f33ce3/inventory-change-history
+GET https://localhost:4100/products/11bc5680-e298-4905-b9aa-e4e5b04e2845/inventory-change-history
 ```
 
 ```http
-DELETE https://localhost:4100/products/618d78d6-5b1c-473d-abeb-cd1f57f33ce3
+DELETE https://localhost:4100/products/11bc5680-e298-4905-b9aa-e4e5b04e2845
 ```
 
 

@@ -61,7 +61,7 @@ public static  class GetProduct
 
         //var response = await session.LoadAsync<ProductDetails>(id); 
         var readModel = await session.Events.AggregateStreamAsync<ProductDetails>(id);
-
+        //var readModel = await session.Events.LoadAsync<ProductDetails>(id);
         if(readModel is null)
         {
             return TypedResults.NotFound();
