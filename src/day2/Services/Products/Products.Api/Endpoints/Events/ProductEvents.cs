@@ -6,6 +6,4 @@ public record ProductPriceAdjusted(decimal NewPrice);
 
 public record ProductQtyInventoryAdjusted(decimal NewQty);
 
-public record ProductSold(int Qty);
-
 public record ProductDiscontinued();
