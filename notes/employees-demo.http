@@ -1,0 +1,33 @@
+@authority=https://localhost:7139
+@managementAuthority=localhost:7234
+
+
+GET {{authority}}/employees
+
+
+### 
+GET {{managementAuthority}}/employees/14/performance-evals
+
+###
+
+### Add An Employee
+
+POST {{authority}}/employees
+Content-Type: application/json 
+
+{
+    "name": "Barb Jones",
+    "phone": "555-1213"
+}
+
+### Scenarios
+### GET /employees/{id}/work-evals
+### You want a new endpoint that allows me to get the work evals for an employee.
+
+### You have a "breaking change" - we now have to make it so that when you hire an employee, you have to tell us their eye color.
+### - If it really is something that you have to do now - just bite the bullet.
+### - Have both options for a while - deprecate one.
+### - You could also use a gateway - 
+### - "Ok, we are going to get X updated first to get them ready, and then domainx,x,z"
+###  We are moving to a V2 not just because we have a breaking change, but our old version
+### sucks, and we want to do it better.
