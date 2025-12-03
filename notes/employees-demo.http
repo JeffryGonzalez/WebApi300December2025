@@ -1,3 +1,4 @@
+## Goal - want ONE authority - like https://api.company.com 
 @authority=https://localhost:7139
 @managementAuthority=localhost:7234
 

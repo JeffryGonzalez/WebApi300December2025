@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EmployeeManager.Api\EmployeeManager.Api.csproj" />
+    <ProjectReference Include="..\ApiGateway\ApiGateway.csproj" />
     <ProjectReference Include="..\Employees.Api\Employees.Api.csproj" />
   </ItemGroup>
 
