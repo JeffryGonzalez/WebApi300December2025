@@ -1,3 +1,4 @@
+using JasperFx;
 using Products.Api.Endpoints;
 using Products.Api.Infra;
 
@@ -24,4 +25,4 @@ app.MapOpenApiForDevelopment();
 app.MapProductRoutes();
 
 app.MapDefaultEndpoints();
-app.Run();
+return await app.RunJasperFxCommands(args);

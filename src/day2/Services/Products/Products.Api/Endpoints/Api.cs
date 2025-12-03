@@ -1,6 +1,6 @@
 
 
-using Products.Api.Endpoints.Operations;
+using Products.Api.Endpoints.Management.Operations;
 
 namespace Products.Api.Endpoints;
 public static class ApiExtensions
@@ -19,15 +19,23 @@ public static class ApiExtensions
         public IEndpointRouteBuilder MapProductRoutes()
         {
 
-            var group = builder.MapGroup("/products");
+            var group = builder.MapGroup("/products")
+                .WithDisplayName("Product Management Operations");
+            
             group.MapGet("/{id:guid}/inventory-change-history",
-                GetProduct.GetProductInventoryChangeHistoryAsync);
-            // .RequireAuthorization("Managers");
+                GetProductStats.GetProductInventoryChangeHistoryAsync);
 
-            group.MapDelete("/{id:guid}", DeleteProduct.DeleteByIdAsync);
-            group.MapPost("/", PostProduct.AddProductToInventoryAsync);
-            group.MapPost("/{id:guid}/inventory-adjustments", PostProduct.AdjustProductInventory);
-            group.MapGet("/{id:guid}", GetProduct.GetProductByIdAsync);
+            group.MapDelete("/{id:guid}", DeleteProduct.DiscontinueProductAsync);
+          
+            group.MapPost("/", PostProduct.AddProductAsync)
+                .WithName("Add Product")
+                .WithDisplayName("Add A Product To Inventory")
+                .WithDescription("Add a product to the inventory store.");
+          
+            group.MapPost("/{id:guid}/inventory-increases", InventoryAdjustments.IncreaseQty);
+            group.MapPost("/{id:guid}/inventory-decreases", InventoryAdjustments.DecreaseQty);
+           
+            group.MapGet("/{id:guid}", GetProduct.ByIdAsync);
             return builder;
         }
     }

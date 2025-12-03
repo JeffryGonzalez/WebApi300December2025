@@ -21,4 +21,8 @@
       <PackageReference Include="WolverineFx.Marten" Version="5.4.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Endpoints\Management\" />
+    </ItemGroup>
+
 </Project>

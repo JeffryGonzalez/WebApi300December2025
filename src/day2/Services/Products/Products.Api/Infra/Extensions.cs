@@ -3,7 +3,7 @@ using JasperFx.Events.Projections;
 using Marten;
 using Marten.Events.Projections;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Products.Api.Endpoints.ReadModels;
+using Products.Api.Endpoints.Management.ReadModels;
 using Wolverine;
 using Wolverine.Marten;
 
@@ -22,12 +22,13 @@ public static class Extensions
             builder.Host.UseWolverine((options) =>
             {
                 options.Policies.AutoApplyTransactions();
-                options.Policies.AutoApplyTransactions();
+            
             }); // have to change the mode for this.
 
             builder.Services.AddMarten(options =>
             {
-                // at some point I'm going to have to create a script for the database.
+               
+         
                 options.Projections.Add<ProductReadModelProjection>(ProjectionLifecycle.Live);
                 options.Projections.Snapshot<InventoryChangeReport>(SnapshotLifecycle.Async);
             })
