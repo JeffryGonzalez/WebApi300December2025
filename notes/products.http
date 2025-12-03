@@ -42,3 +42,19 @@ Content-Type: application/json
   "price": 2.23,
   "qty": 4
 }
+
+
+### Demo Get Request - Not Real
+
+GET https://localhost:4100/products
+Authorization: {{token}}
+Accept: application/json+tony
+
+
+### 
+GET https://localhost:4100/products/{id}
+Accept: image/jpg
+
+### 
+GET https://localhost:4100/products/{id}
+Accept: application/json
