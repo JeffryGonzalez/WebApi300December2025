@@ -13,7 +13,7 @@ builder.Services.AddAuthorizationAndPolicies();
 builder.AddPersistenceAndMessaging("vendors");
 
 var app = builder.Build();
-
+app.UseCors();
 app.UseStatusCodePages();
 
 app.UseAuthentication();

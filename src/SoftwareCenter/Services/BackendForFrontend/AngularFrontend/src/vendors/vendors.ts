@@ -1,5 +1,5 @@
 import { HttpClient, httpResource } from '@angular/common/http';
-import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FeatureNav } from 'app-ui/feature-nav';
 import { client } from '../api-clients/software/client.gen';
 import { JsonPipe } from '@angular/common';
@@ -13,9 +13,13 @@ import { JsonPipe } from '@angular/common';
       label: 'Create Vendor', link: '/vendors/create', exact: false, icon: 'none' }
     ]">
 
-@if(myVendors.hasValue()) {
-  <pre>{{ myVendors.value()  | json }}</pre>
-}
+    @if(vendorList.hasValue()) {
+      <pre>{{ vendorList.value() | json}}</pre>
+    }
+
+    @if(vendorList.isLoading()) {
+      <p>Getting your vendors...</p>
+    }
     </app-feature-nav>
   `,
   styles: ``,
@@ -23,7 +27,7 @@ import { JsonPipe } from '@angular/common';
 export class Vendors implements OnInit {
   #client = inject(HttpClient);
 
-  myVendors = httpResource(() => '/api/vendors/my-vendors');
+  vendorList = httpResource(() => '/api/vendors');
 
   ngOnInit(): void {
     client.setConfig({

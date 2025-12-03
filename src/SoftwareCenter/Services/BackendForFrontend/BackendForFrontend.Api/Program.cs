@@ -7,6 +7,8 @@ using SoftwareCenter.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// I do this all the time. Take the header off the response that says what web server you are using.
+
 builder.WebHost.ConfigureKestrel(options => { options.AddServerHeader = false; });
 builder.AddServiceDefaults();
 builder.Services.AddSoftwareCenterOpenApiWithTransforms<BffOpenApiTransform>("v1");
@@ -19,6 +21,9 @@ builder.AddAuthenticationSchemes();
 
 builder.Services.AddOpenIdConnectAccessTokenManagement();
 
+
+// just this week angular had a big patch because they handled this wrong.
+// UPDATE YOUR ANGULAR APPS
 builder.Services.AddAntiforgery(options =>
 {
     options.HeaderName = "X-XSRF-TOKEN";

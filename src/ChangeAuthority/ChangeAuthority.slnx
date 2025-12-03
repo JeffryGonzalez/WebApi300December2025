@@ -7,6 +7,9 @@
     <Project Path="ApiGateway/ApiGateway.csproj" />
   </Folder>
   <Folder Name="/Services/">
+    <Project Path="EmployeeManager.Api/EmployeeManager.Api.csproj" />
     <Project Path="Employees.Api/Employees.Api.csproj" />
+    <Project Path="EmployeesCommon/EmployeesCommon.csproj" Id="c1a4ace6-3b76-4c8d-acd2-f45ef3d1978b" />
+    <Project Path="UpdatedAndNewEmployeeApi/UpdatedAndNewEmployeeApi.csproj" />
   </Folder>
 </Solution>

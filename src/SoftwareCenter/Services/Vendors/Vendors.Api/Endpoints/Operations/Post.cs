@@ -24,12 +24,7 @@ public static class Post
         return TypedResults.Created("$/vendors/{command.Id}", new CreateVendorResponseModel(command));
     }
 
-    public static async Task<IResult> GetManagerVendorsAsync(IDocumentSession session)
-    {
-        var response = await session.Events.AggregateStreamAsync<ManagerVendors>(FakeManager);
-        return TypedResults.Ok(response);
 
-    }
     extension(RouteGroupBuilder vendorGroup)
     {
         public RouteGroupBuilder MapPostVendor()
@@ -39,12 +34,32 @@ public static class Post
                 .WithSummary("POST /vendors")
                 .WithDescription("Allows a manager to add a new vendor to the system.");
 
-            vendorGroup.MapGet("/my-vendors", GetManagerVendorsAsync);
+            vendorGroup.MapGet("/", () =>
+            {
+                List<VendorItem> vendors = [
+                 new VendorItem {
+                    Id = Guid.NewGuid(),
+                    Name = "Microsoft"
+                },
+              new VendorItem {
+                  Id = Guid.NewGuid(),
+                  Name = "JetBrains"
+              }
+                 ];
+
+                return TypedResults.Ok(vendors);
+            }).RequireAuthorization();
             return vendorGroup;
         }
     }
 }
 
+public record VendorItem
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+
+}
 [AnyOf(nameof(PointOfContactEmail), nameof(PointOfContactPhone))]
 public record CreateVendorRequestModel : IValidatableObject
 {

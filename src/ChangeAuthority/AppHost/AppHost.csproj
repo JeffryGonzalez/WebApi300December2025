@@ -10,7 +10,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ApiGateway\ApiGateway.csproj" />
+    <ProjectReference Include="..\EmployeeManager.Api\EmployeeManager.Api.csproj" />
     <ProjectReference Include="..\Employees.Api\Employees.Api.csproj" />
+    <ProjectReference Include="..\UpdatedAndNewEmployeeApi\UpdatedAndNewEmployeeApi.csproj" />
   </ItemGroup>
 
 </Project>

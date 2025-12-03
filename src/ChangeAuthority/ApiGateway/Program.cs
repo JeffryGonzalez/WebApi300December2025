@@ -1,17 +1,17 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddServiceDefaults();
+builder.AddServiceDefaults(); // aspire
 
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"))
-    .AddServiceDiscoveryDestinationResolver();
-// Add services to the container.
+    .AddServiceDiscoveryDestinationResolver(); // is so that it can resolve URLs given to it from AppHost.
+
 
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
-app.MapReverseProxy();
+app.MapReverseProxy();  // Add This.
 
 app.Run();

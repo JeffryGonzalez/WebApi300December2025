@@ -76,7 +76,7 @@ var angularFrontend = builder
     .WithHttpEndpoint(env: "PORT")
     .WithExternalHttpEndpoints()
     .PublishAsDockerFile()
-    .WithNpmPackageInstallation();
+    .WithNpmPackageInstallation(); // if this hasn't had NPM install done, do it.
 
 var angularDevKey = "bff-angular-dev";
 var angularDev = builder.AddParameter(angularDevKey); // Either "dev" or "prod"

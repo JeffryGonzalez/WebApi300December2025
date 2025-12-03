@@ -1,24 +1,38 @@
 ## Goal - want ONE authority - like https://api.company.com 
-@authority=https://localhost:7139
+## Right now - you just get right into the house, right to the API
+
+## https://api.company.com 
+@authority=https://localhost:7215
 @managementAuthority=localhost:7234
 
 
-GET {{authority}}/employees
+## This would use your gateway to go get the angular app.
+GET {{authority}}/
+
+###
+
+GET {{authority}}/v1/employees
+
+
 
 
 ### 
-GET {{managementAuthority}}/employees/14/performance-evals
+GET {{authority}}/v1/employees/1993
+
+### 
+GET {{authority}}/v1/employees/14/performance-evals
 
 ###
 
 ### Add An Employee
 
-POST {{authority}}/employees
+POST {{authority}}/v1/employees
 Content-Type: application/json 
 
 {
     "name": "Barb Jones",
-    "phone": "555-1213"
+    "phone": "555-1213",
+    "eyecolor": "BROWN"
 }
 
 ### Scenarios
@@ -32,3 +46,8 @@ Content-Type: application/json
 ### - "Ok, we are going to get X updated first to get them ready, and then domainx,x,z"
 ###  We are moving to a V2 not just because we have a breaking change, but our old version
 ### sucks, and we want to do it better.
+
+
+GET https://localhost:15100/
+Authentication: Bearer eyJraWQiOiJzb2Z0d2FyZSIsInR5cCI6IkpXVCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJlYXJsIiwibmJmIjoxNzY0Nzk1MTIwLCJyb2xlIjpbIlNvZnR3YXJlQ2VudGVyIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTA2OS9zb2Z0d2FyZSIsImV4cCI6MTc2NDc5ODcyMCwiaWF0IjoxNzY0Nzk1MTIwLCJqdGkiOiJkZTNmODZkZi1jYjZiLTQ3ZjUtOWE1NS1mNDYxZTU4N2E4M2YifQ.dAoD6B15m99o5U8dAo_a_GaKXYqc1QCluEbklwUrp_pys9xps7nnc7OY3DlaPpCobGuKc83HNPxm7AvDT7tAX5FsnVV0tEfOKfQPfGT60WCWbzyPJ2J6ZiFodFaPjpTtEuMJdwoOCDWNFyUr8QwdBVClzHhnRri3pgWGE7MlLNqHpeHWBurD2g5asw1dPIJCutgT8EvqvwGll02XNSeJ1n05MBC1B0L7gBv7BrJKMnjNYyl0R2et-HvJ9agxrKmw_KdwesH6CLACGpYwRFigkp03izqXbBxB2wTUc2YEAWJ1Q23oAufHm8LP6NqcawHFeUK6T4JuYkytslLfidS59w
+
