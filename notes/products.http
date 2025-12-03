@@ -1,0 +1,44 @@
+@token=Bearer eyJraWQiOiJzb2Z0d2FyZSIsInR5cCI6IkpXVCIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJhbGljZSIsIm5iZiI6MTc2NDc1OTk0OSwicm9sZSI6WyJNYW5hZ2VyIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTA2OS9zb2Z0d2FyZSIsImV4cCI6MTc2NDc2MzU0OSwiaWF0IjoxNzY0NzU5OTQ5LCJqdGkiOiJiNTdmNDI5OS02YmFmLTRlMGMtYTdhZi03OTMwNTRmNThlNmMifQ.ZXfCQn9U3fHC5etzbXLj65hyovoHC49fwy-qRCEaf6YmsJRNs14T0PJ67q4aNa4nGbXjE2aLpiAIPddgDrrOcUWTaBj8PCQrT7n_HStvF0uk0snyqpeRwYk9iLGE5cfun9UKTSRUdUqFUGoWvbGi2NB9DvlAVV6HxSo07Olq_lry4saoRbN6wS-SD9Zon6e7hqXLCnfuRZX8GPOQtR8jJA3sQruxcKrlaggotwPq3GD08RT5WY9W-J_JwfUgDEtRCiy9bvvsnPJbHEAYdNZxB3lfgv46pwVTbA5uR8Z-3_yuwiyJMnEx3Cojnkl-mgL5g3_9W74Oc7085Sq6we9xhA
+
+### Add Products
+
+POST https://localhost:4100/products
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+  "name": "Eggs",
+  "price": 2.99,
+  "qty": 18
+}
+
+### 
+POST https://localhost:4100/products
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+  "name": "Cheese",
+  "price": 3.99,
+  "qty": 12
+}
+###
+POST https://localhost:4100/products
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+  "name": "Avacado",
+  "price": 4.99,
+  "qty": 12
+}
+###
+POST https://localhost:4100/products
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+  "name": "Chips",
+  "price": 2.23,
+  "qty": 4
+}
