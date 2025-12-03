@@ -1,0 +1,28 @@
+# Web API 300
+
+## Setup
+
+Make sure Docker Desktop is running.
+
+Open a terminal in the `~/class/WebApi300` directory and run the following:
+
+```sh
+echo "Removing all of your docker images"
+docker rm -f $(docker ps -aq) 
+echo "Removing all your docker volumes"
+docker volume rm $(docker volume ls -q)
+```
+
+
+
+To get my current code:
+
+```sh 
+npx gitpick JeffryGonzalez/WebApi300December2025/tree/main/src/day3 ./src/day3
+```
+
+If you want to pull my latest later and overwrite what you have:
+
+```sh
+npx gitpick JeffryGonzalez/WebApi300December2025/tree/main/src/day3 ./src/day3 -o
+```
