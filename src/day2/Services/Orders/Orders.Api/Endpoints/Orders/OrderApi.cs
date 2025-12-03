@@ -7,7 +7,6 @@ namespace Orders.Api.Endpoints.Orders;
 
 public static class OrderApi
 {
-
     extension(IServiceCollection services)
     {
         public IServiceCollection AddOrders()
@@ -16,6 +15,7 @@ public static class OrderApi
             return services;
         }
     }
+
     extension(IEndpointRouteBuilder builder)
     {
         public IEndpointRouteBuilder MapOrders()
@@ -34,31 +34,34 @@ public static class OrderApi
 
 public record ShoppingCartRequest : IValidatableObject
 {
-    [Required, Range(1, 3000)]
-    public decimal Amount { get; set; }
+    [Required] [Range(1, 3000)] public decimal Amount { get; set; }
 
-    [Required, MinLength(3), MaxLength(100)]
+    [Required]
+    [MinLength(3)]
+    [MaxLength(100)]
     public string CustomerName { get; set; } = string.Empty;
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        string customerName = CustomerName.ToLowerInvariant().Trim();
+        var customerName = CustomerName.ToLowerInvariant().Trim();
         if (customerName == "jeff gonzalez" && Amount > 10M)
-        {
             yield return new ValidationResult("Jeff Is a mooch and can't buy that much");
-        }
-        if(customerName.Contains("vader") && Amount > 500)
-        {
+        if (customerName.Contains("vader") && Amount > 500)
             yield return new ValidationResult("Sith Lords Not To Be Trusted");
-        }
     }
 }
 
-public enum OrderStatus {  Received, Processing, Complete, Failed}; // etc. etc.
+public enum OrderStatus
+{
+    Received,
+    Processing,
+    Complete,
+    Failed
+}; // etc. etc.
+
 public record OrderResponse
 {
     public Guid Id { get; set; }
 
     public OrderStatus Status { get; set; }
-    
 }

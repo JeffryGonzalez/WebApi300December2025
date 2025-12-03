@@ -1,15 +1,35 @@
+using System.Security.Claims;
 using JasperFx.Events;
 using Marten;
 using Products.Api.Endpoints.Management.Events;
+using Products.Api.Endpoints.Management.ReadModels;
 
 namespace Products.Api.Endpoints.Management.Handlers;
 
 public class ProductsHandler
 {
-    public StreamAction Handle(CreateProduct command, IDocumentSession session)
+    public async Task<UserInfo> LoadAsync(IDocumentSession session, IHttpContextAccessor httpContextAccessor)
     {
-        var (id, name,price, qty ) = command;
-        return session.Events.StartStream(id, new ProductCreated(id, name, price, qty) );
+        var user = httpContextAccessor.HttpContext?.User;
+        var sub = user?.Claims.FirstOrDefault(c => c.Type == "sub")?.Value ?? throw new UnauthorizedAccessException();
+        var info = await session.Query<UserInfo>().Where(u => u.Sub == sub).SingleOrDefaultAsync();
+
+        if (info is not null) return info;
+
+        var userId = Guid.NewGuid();
+        session.Events.StartStream(userId, new ProductUserCreated(userId, sub));
+        await session.SaveChangesAsync();
+        return new UserInfo
+        {
+            Id = userId,
+            Sub = sub
+        };
+    }
+
+    public StreamAction Handle(CreateProduct command, IDocumentSession session, UserInfo userInfo)
+    {
+        var (id, name, price, qty) = command;
+        return session.Events.StartStream(id, new ProductCreated(id, name, price, qty, userInfo.Id));
     }
 
     public void Handle(DiscontinueProduct command, IDocumentSession session)
@@ -21,7 +41,7 @@ public class ProductsHandler
     {
         session.Events.Append(command.Id, new ProductQtyIncreased(command.Id, command.Increase));
     }
-    
+
     public void Handle(DecreaseProductQty command, IDocumentSession session)
     {
         session.Events.Append(command.Id, new ProductQtyDecreased(command.Id, command.Decrease));

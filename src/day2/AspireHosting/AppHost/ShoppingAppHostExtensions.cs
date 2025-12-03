@@ -2,7 +2,6 @@ namespace AppHost;
 
 public static class ShoppingAppHostExtensions
 {
-
     extension(IDistributedApplicationBuilder builder)
     {
         public IResourceBuilder<ContainerResource> AddMockOidcDevelopmentServer()
@@ -14,7 +13,7 @@ public static class ShoppingAppHostExtensions
                     "/app/resources/software/") // Mount local folder to container, contains config and login template
                 .WithLifetime(ContainerLifetime.Persistent) // Keep container and data between runs
                 .WithEnvironment("JSON_CONFIG_PATH", "/app/resources/software/settings/config.json");
-            
+
             return identity;
         }
     }
@@ -22,8 +21,6 @@ public static class ShoppingAppHostExtensions
     // a project resource is when we do "builder.AddProject<Projects.SomeApi>("bbb");
     extension(IResourceBuilder<ProjectResource> builder)
     {
-
-       
         public IResourceBuilder<ProjectResource> WithIdentityOpenIdAuthority(
             IResourceBuilder<ContainerResource> identity)
         {

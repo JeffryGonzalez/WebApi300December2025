@@ -4,10 +4,9 @@ using Products.Api.Endpoints.Management.Events;
 
 namespace Products.Api.Endpoints.Management.ReadModels;
 
-
 public record ProductDetails
 {
-    public Guid Id { get; set;  }
+    public Guid Id { get; set; }
     public int Version { get; set; }
 
     public string Name { get; set; } = string.Empty;
@@ -20,11 +19,11 @@ public record ProductDetails
 
 public class ProductReadModelProjection : SingleStreamProjection<ProductDetails, Guid>
 {
-
     public ProductReadModelProjection()
     {
         DeleteEvent<ProductDiscontinued>();
     }
+
     public static ProductDetails Create(IEvent<ProductCreated> @event)
     {
         return new ProductDetails
@@ -41,9 +40,9 @@ public class ProductReadModelProjection : SingleStreamProjection<ProductDetails,
     {
         return model with { Qty = model.Qty + @event.Increase };
     }
+
     public ProductDetails Apply(ProductQtyDecreased @event, ProductDetails model)
     {
         return model with { Qty = model.Qty + @event.Decrease };
     }
-
 }

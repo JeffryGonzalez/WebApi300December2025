@@ -15,7 +15,7 @@ public record InventoryChangeReport
     public static InventoryChangeReport Create(IEvent<ProductCreated> @event)
     {
         var inventoryRecord = new InventoryRecord(@event.Timestamp, 0, @event.Data.Qty, "Initial");
-        return new InventoryChangeReport() { ProductName = @event.Data.Name, Changes = [inventoryRecord]};
+        return new InventoryChangeReport { ProductName = @event.Data.Name, Changes = [inventoryRecord] };
     }
 
     public InventoryChangeReport Apply(IEvent<ProductQtyIncreased> @event, InventoryChangeReport model)
@@ -36,7 +36,6 @@ public record InventoryChangeReport
     {
         return model with { DiscontinuedOn = @event.Timestamp };
     }
- 
 }
 
 public record InventoryRecord(DateTimeOffset When, int Before, int After, string Kind)

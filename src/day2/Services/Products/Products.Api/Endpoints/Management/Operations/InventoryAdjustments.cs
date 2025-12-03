@@ -7,21 +7,23 @@ using Wolverine;
 namespace Products.Api.Endpoints.Management.Operations;
 
 public record QtyIncreaseRequest(
-    Guid Id, 
-    [property:Required, Range(1, int.MaxValue)] 
+    Guid Id,
+    [property: Required]
+    [property: Range(1, int.MaxValue)]
     int Increase,
     int Version);
+
 public record QtyDecreaseRequest(
-    Guid Id, 
-    [property:Required, Range(1, int.MaxValue)] 
+    Guid Id,
+    [property: Required]
+    [property: Range(1, int.MaxValue)]
     int Decrease,
     int Version);
+
 public static class InventoryAdjustments
 {
-    
-    
     public static async Task<IResult> IncreaseQty(
-        Guid id, 
+        Guid id,
         QtyIncreaseRequest request,
         IMessageBus messageBus,
         IDocumentSession session
@@ -41,9 +43,9 @@ public static class InventoryAdjustments
             }
         }
     }
-    
+
     public static async Task<IResult> DecreaseQty(
-        Guid id, 
+        Guid id,
         QtyDecreaseRequest request,
         IMessageBus messageBus,
         IDocumentSession session

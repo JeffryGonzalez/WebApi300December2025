@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi;
 
 namespace ShoppingServiceDefaults.OpenApiTransforms;
+
 /// <summary>
 /// Disclaimer: This is classroom code. Not super production ready - I use something *close* to this in production,
 /// but check with your local authorities. - Jeff
@@ -36,7 +37,7 @@ public abstract class ShoppingCoreOAuth2DocumentTransformer : IOpenApiDocumentTr
                 {
                     AuthorizationCode = new OpenApiOAuthFlow
                     {
-                        AuthorizationUrl = new Uri(uri + "/authorize"), TokenUrl = new Uri(uri + "/token"),
+                        AuthorizationUrl = new Uri(uri + "/authorize"), TokenUrl = new Uri(uri + "/token")
                     }
                 }
             });

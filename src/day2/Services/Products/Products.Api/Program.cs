@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 builder.AddCorsForDevelopment();
 builder.AddDevelopmentOpenApiGeneration("products", "v1");
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddAuthenticationSchemes();
 builder.Services.AddAuthorizationAndPolicies();
@@ -14,6 +15,7 @@ builder.Services.AddAuthorizationAndPolicies();
 builder.AddPersistenceAndMessaging("products");
 
 var app = builder.Build();
+app.UseCors();
 
 app.UseStatusCodePages();
 

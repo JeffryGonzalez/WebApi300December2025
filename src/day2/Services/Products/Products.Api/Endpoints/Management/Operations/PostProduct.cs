@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Marten;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Products.Api.Endpoints.Management.Handlers;
@@ -15,7 +16,7 @@ public static class PostProduct
     )
     {
         var command = new CreateProduct(Guid.NewGuid(), request.Name, request.Price, request.Qty);
-        await messaging.InvokeAsync( command );
+        await messaging.InvokeAsync(command);
         var response = await session.Events.FetchLatest<ProductDetails>(command.Id)!;
         return TypedResults.Ok(response);
     }

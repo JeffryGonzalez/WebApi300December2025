@@ -10,11 +10,10 @@ public static class AssemblyExtension
         {
             return Assembly.GetEntryAssembly()?.GetName().Name == "GetDocument.Insider";
         }
-        
+
         public static bool NotBuildingOpenApiDocs()
         {
             return Assembly.GetEntryAssembly()?.GetName().Name != "GetDocument.Insider";
         }
-  
     }
 }

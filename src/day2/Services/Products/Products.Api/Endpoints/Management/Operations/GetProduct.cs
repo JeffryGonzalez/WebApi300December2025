@@ -4,7 +4,7 @@ using Products.Api.Endpoints.Management.ReadModels;
 
 namespace Products.Api.Endpoints.Management.Operations;
 
-public static  class GetProduct
+public static class GetProduct
 {
     public static async Task<Results<Ok<ProductDetails>, NotFound>> ByIdAsync(Guid id, IDocumentSession session)
     {

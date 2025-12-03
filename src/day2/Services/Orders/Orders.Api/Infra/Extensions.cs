@@ -31,7 +31,7 @@ public static class Extensions
 
         public WebApplicationBuilder AddCorsForDevelopment()
         {
-            if(builder.Environment.IsDevelopment() == false)
+            if (builder.Environment.IsDevelopment() == false)
                 return builder;
             builder.Services.AddCors(corsOptions =>
             {
@@ -54,11 +54,10 @@ public static class Extensions
         /// <returns></returns>
         public WebApplicationBuilder AddDevelopmentOpenApiGeneration(string apiName, string apiVersion)
         {
-
             // openapi/orders.v1
             if (!builder.Environment.IsDevelopment()) return builder;
             var baseVersion = $"{apiName}.{apiVersion}";
-    
+
 
             builder.Services.AddOpenApi(baseVersion,
                 options => options.AddDocumentTransformer<ServiceOpenApiTransform>());

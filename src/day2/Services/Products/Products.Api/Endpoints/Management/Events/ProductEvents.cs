@@ -3,13 +3,9 @@ using Products.Api.Endpoints.Management.Handlers;
 
 namespace Products.Api.Endpoints.Management.Events;
 
-// Things that have happened. So we use past-tense in the naming.
-// And these are usually the things the "business" cares about.
+public record ProductCreated(Guid Id, string Name, decimal Price, int Qty, Guid CreatedBy);
 
-
-
-
-public record ProductCreated(Guid Id, string Name, decimal Price, int Qty);
+public record ProductUserCreated(Guid Id, string Sub);
 
 public record ProductPriceAdjusted(decimal NewPrice);
 

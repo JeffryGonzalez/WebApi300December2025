@@ -1,15 +1,14 @@
-
 GET https://localhost:4000/orders
 
 
 ###
 
 POST https://localhost:4000/orders
-Content-Type: application/json 
+Content-Type: application/json
 
 {
-    "customerName": "jeff G",
-    "amount": 13
+  "customerName": "jeff G",
+  "amount": 13
 }
 
 

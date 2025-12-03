@@ -5,6 +5,6 @@ namespace Products.Api.Endpoints.Management.Operations.Models;
 
 [Facet(typeof(CreateProduct))]
 public partial record ProductCreateResponse
-{ 
+{
     public string Status => "Pending";
 }
