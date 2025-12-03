@@ -21,6 +21,25 @@ To get my current code:
 npx gitpick JeffryGonzalez/WebApi300December2025/tree/main/src/day3 ./src/day3
 ```
 
+For the Yarp Demo / Versioning;
+
+```sh 
+npx gitpick JeffryGonzalez/WebApi300December2025/tree/main/src/ChangeAuthority ./src/ChangeAuthority
+```
+
+For the The Software Center Thing with the Angular App
+
+```sh 
+npx gitpick JeffryGonzalez/WebApi300December2025/tree/main/src/SoftwareCenter ./src/SoftwareCenter
+```
+
+
+If you want my notes and drawings and stuff:
+
+```sh 
+npx gitpick JeffryGonzalez/WebApi300December2025/tree/main/notes ./Jeff-Notes
+```
+
 If you want to pull my latest later and overwrite what you have:
 
 ```sh
