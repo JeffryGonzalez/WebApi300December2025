@@ -1,6 +1,6 @@
 namespace Products.Api.Endpoints.Management.Handlers;
 
-public record CreateProduct(Guid Id, string Name, decimal Price, int Qty);
+public record CreateProduct(Guid Id, string Name, decimal Price, int Qty, string CreatedBySub);
 
 public record DiscontinueProduct(Guid Id);
 

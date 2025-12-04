@@ -2,6 +2,7 @@ using JasperFx;
 using Products.Api.Endpoints;
 using Products.Api.Endpoints.Services;
 using Products.Api.Infra;
+using Wolverine;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthenticationSchemes();
 builder.Services.AddAuthorizationAndPolicies();
 builder.AddPersistenceAndMessaging("products");
+
 
 var app = builder.Build();
 app.UseCors(); // This! This is for using Scalar 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Products.Api.Endpoints.Management.Handlers;
 using Products.Api.Endpoints.Management.ReadModels;
+using Products.Api.Messaging;
 using Wolverine;
 using Wolverine.Marten;
 using Wolverine.Transports.Tcp;
@@ -18,13 +19,17 @@ public static class Extensions
 
     extension(WebApplicationBuilder builder)
     {
+        
         public WebApplicationBuilder AddPersistenceAndMessaging(string dataSourceName)
         {
             builder.AddNpgsqlDataSource(dataSourceName);
             builder.Host.UseWolverine((options) =>
             {
+                options.Discovery.IncludeAssembly(typeof(Products.Api.Messaging.OrderDocumentHandlers).Assembly);
                 options.Policies.AutoApplyTransactions();
-                options.ListenAtPort(4203).Named("taco");
+
+        
+                Console.WriteLine(options.DescribeHandlerMatch(typeof(OrderDocumentHandlers)));
 
             }); // have to change the mode for this.
             builder.Services.AddMarten(options =>
@@ -105,6 +110,17 @@ public static class Extensions
                 pol.RequireAuthenticatedUser();
             });
             return services;
+        }
+    }
+
+    extension(IHttpContextAccessor accessor)
+    {
+        public string? CallersSubject
+        {
+            get
+            {
+                return accessor.HttpContext?.User.FindFirst(c => c.Type == "sub")?.Value!;
+            }
         }
     }
 }

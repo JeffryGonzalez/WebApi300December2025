@@ -3,19 +3,26 @@ using Marten;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Products.Api.Endpoints.Management.Handlers;
 using Products.Api.Endpoints.Management.ReadModels;
+using Products.Api.Infra;
 using Wolverine;
 
 namespace Products.Api.Endpoints.Management.Operations;
 
 public static class PostProduct
 {
-    public static async Task<Ok<ProductDetails>> AddProductAsync(
+    public static async Task<Results<Ok<ProductDetails>, UnauthorizedHttpResult>> AddProductAsync(
         Models.ProductCreateRequest request,
         IMessageBus messaging,
-        IDocumentSession session
+        IDocumentSession session,
+        IHttpContextAccessor httpContextAccessor
     )
     {
-        var command = new CreateProduct(Guid.NewGuid(), request.Name, request.Price, request.Qty);
+        var sub = httpContextAccessor.CallersSubject;
+        if (sub is null)
+        {
+            return TypedResults.Unauthorized();
+        }
+        var command = new CreateProduct(Guid.NewGuid(), request.Name, request.Price, request.Qty,sub);
       
         await messaging.InvokeAsync(command); // Blocks until that command returns.
         // I want to return the "Real" product details here.

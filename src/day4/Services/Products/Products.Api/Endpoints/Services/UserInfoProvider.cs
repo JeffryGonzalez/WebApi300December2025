@@ -7,6 +7,7 @@ namespace Products.Api.Endpoints.Services;
 public interface IProvideUserInfo
 {
     Task<UserInfo> GetUserInfoAsync();
+    Task<UserInfo?> GetUserInfoFromSubAsync(string sub);
 }
 
 public class UserInfoProvider(IDocumentSession session, IHttpContextAccessor httpContextAccessor) : IProvideUserInfo
@@ -27,5 +28,12 @@ public class UserInfoProvider(IDocumentSession session, IHttpContextAccessor htt
             Id = userId,
             Sub = sub
         };
+    }
+
+    public async Task<UserInfo?> GetUserInfoFromSubAsync(string sub)
+    {
+        var info = await session.Query<UserInfo>().Where(u => u.Sub == sub).SingleOrDefaultAsync();
+
+        return info;
     }
 }
