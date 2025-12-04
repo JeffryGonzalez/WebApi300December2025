@@ -8,7 +8,7 @@ using Wolverine.Attributes;
 namespace Products.Api.Messaging;
 
 
-public record SendOrdersProductDocument(ProductDetails? OrderProductDocument);
+public record OrdersApiProductDocument(ProductDetails? OrderProductDocument);
 
 [WolverineHandler]
 
@@ -20,19 +20,37 @@ public static class OrderDocumentHandlers
       var doc =await session.Events.FetchLatest<ProductDetails>(command.Id);
       if (doc is not null)
       {
-        await bus.PublishAsync(new SendOrdersProductDocument(doc), new DeliveryOptions()
+        await bus.PublishAsync(new OrdersApiProductDocument(doc), new DeliveryOptions()
         {
             PartitionKey = command.Id.ToString()
         });
       }
    }
 
-   public static async Task Handle(ProductsHandler.SendTombstoneProductToOrders command, IMessageBus bus)
+   public static async ValueTask Handle(ProductsHandler.SendTombstoneProductToOrders command, IMessageBus bus)
    {
-       await bus.PublishAsync(new SendOrdersProductDocument(null), new DeliveryOptions()
+       await bus.PublishAsync(new OrdersApiProductDocument(null), new DeliveryOptions()
        {
            PartitionKey = command.Id.ToString()
        });
    }
     
+}
+
+[WolverineHandler]
+public class DemoDocumentHandlers
+{
+    public static void Handle(OrdersApiProductDocument message, ILogger logger, Envelope env)
+    {
+        if (message.OrderProductDocument is null)
+        {
+            logger.LogWarning("Received tombstone for product document {Key}", env.PartitionKey);
+        }
+        else
+        {
+            logger.LogWarning("Received product document: {Product} Key: {key}", message.OrderProductDocument, env.PartitionKey);
+        }
+        
+       
+    }
 }

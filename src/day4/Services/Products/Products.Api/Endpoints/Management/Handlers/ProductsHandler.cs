@@ -2,7 +2,7 @@ using System.Security.Claims;
 using JasperFx.Events;
 using Marten;
 using Products.Api.Endpoints.Management.Events;
-using Products.Api.Endpoints.Management.ReadModels;
+
 using Products.Api.Endpoints.Services;
 
 namespace Products.Api.Endpoints.Management.Handlers;
