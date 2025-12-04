@@ -1,19 +1,17 @@
-using Facet;
 using Marten;
 using Products.Api.Endpoints.Management.Events;
-using Products.Api.Endpoints.Management.Handlers;
 using Products.Api.Endpoints.Management.ReadModels;
 using Wolverine;
 using Wolverine.Attributes;
 
-namespace Products.Api.Messaging;
+namespace Products.Api.Endpoints.Management.Handlers;
 
 
 public record SendOrdersProductDocument(Guid Id, ProductDetails? OrderProductDocument);
 
+[WolverineHandler]
 
-
-public static class OrderDocumentHandler
+public static class OrderDocumentHandlers
 {
     
    public static async ValueTask Handle(ProductCreated command, IDocumentSession session, IMessageBus bus, ILogger logger)
