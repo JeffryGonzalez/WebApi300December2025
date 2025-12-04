@@ -2,11 +2,17 @@
 import { z } from 'zod';
 
 export const zCreateVendorRequestModel = z.object({
-  name: z.string().min(3).max(50),
-  description: z.string().max(100),
+  name: z.string().min(10).max(50),
+  description: z.string().min(10).max(500),
   pointOfContactName: z.string(),
   pointOfContactEmail: z.optional(z.string()),
   pointOfContactPhone: z.optional(z.string()),
+});
+
+export const zVendorListItem = z.object({
+  id: z.optional(z.uuid()),
+  name: z.optional(z.string()),
+  description: z.optional(z.string()),
 });
 
 export const zVendorPointOfContact = z.object({
@@ -19,12 +25,23 @@ export const zVendorPointOfContact = z.object({
 export const zCreateVendorResponseModel = z.object({
   id: z.optional(z.uuid()),
   managerId: z.optional(z.uuid()),
-  name: z.optional(z.union([z.null(), z.string()])),
-  description: z.optional(z.union([z.null(), z.string()])),
+  name: z.optional(z.string()),
+  description: z.optional(z.string()),
   pointOfContact: z.optional(zVendorPointOfContact),
 });
 
-export const zPostApiSoftwareVendorsData = z.object({
+export const zGetApiVendorsData = z.object({
+  body: z.optional(z.never()),
+  path: z.optional(z.never()),
+  query: z.optional(z.never()),
+});
+
+/**
+ * OK
+ */
+export const zGetApiVendorsResponse = z.array(zVendorListItem);
+
+export const zPostApiVendorsData = z.object({
   body: zCreateVendorRequestModel,
   path: z.optional(z.never()),
   query: z.optional(z.never()),
@@ -33,4 +50,4 @@ export const zPostApiSoftwareVendorsData = z.object({
 /**
  * Created
  */
-export const zPostApiSoftwareVendorsResponse = zCreateVendorResponseModel;
+export const zPostApiVendorsResponse = zCreateVendorResponseModel;

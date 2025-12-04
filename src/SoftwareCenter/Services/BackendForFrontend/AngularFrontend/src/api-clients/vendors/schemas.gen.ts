@@ -6,11 +6,12 @@ export const CreateVendorRequestModelSchema = {
   properties: {
     name: {
       maxLength: 50,
-      minLength: 3,
+      minLength: 10,
       type: 'string',
     },
     description: {
-      maxLength: 100,
+      maxLength: 500,
+      minLength: 10,
       type: 'string',
     },
     pointOfContactName: {
@@ -37,13 +38,29 @@ export const CreateVendorResponseModelSchema = {
       format: 'uuid',
     },
     name: {
-      type: ['null', 'string'],
+      type: 'string',
     },
     description: {
-      type: ['null', 'string'],
+      type: 'string',
     },
     pointOfContact: {
       $ref: '#/components/schemas/VendorPointOfContact',
+    },
+  },
+} as const;
+
+export const VendorListItemSchema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'string',
+      format: 'uuid',
+    },
+    name: {
+      type: 'string',
+    },
+    description: {
+      type: 'string',
     },
   },
 } as const;

@@ -21,7 +21,7 @@ export type CreateClientConfig<T extends ClientOptions = ClientOptions2> = (
 
 export const client = createClient(
   createConfig<ClientOptions2>({
-    baseUrl: 'https://localhost:12443/',
+    baseUrl: 'https://vendorsapi-dashboard.dev.localhost:15100/',
     throwOnError: true,
   }),
 );

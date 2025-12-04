@@ -1,0 +1,44 @@
+@authority=https://localhost:7072
+
+
+### Zeroith
+POST {{authority}}/send 
+Content-Type: application/json
+
+{
+    "content": "Zeroith message"
+}
+
+
+### First
+POST {{authority}}/send 
+Content-Type: application/json
+
+{
+    "content": "First message"
+}
+
+
+### Second
+POST {{authority}}/send 
+Content-Type: application/json
+
+{
+    "content": "Second message"
+}
+
+### Third
+POST {{authority}}/send
+Content-Type: application/json
+
+{
+    "content": "Third message"
+}
+
+###  Fourth
+POST {{authority}}/send 
+Content-Type: application/json
+
+{
+    "content": "Who Got This?"
+}

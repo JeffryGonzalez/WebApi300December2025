@@ -14,11 +14,11 @@ var app1 = builder.AddProject<Projects.ApiOneProducer>("app1")
         .WithReference(kafka)
         .WaitFor(kafka)
     ;
-// scalarApis.WithApiReference(productsApi, options => { options.AddDocument("products.v1", "Product Management API"); });
 
 docs.WithApiReference(app1, options => options.AddDocument("v1", "API One Producer"));
 
 var client = builder.AddProject<Projects.ApiClient>("client")
     .WithReference(kafka)
+    .WithReplicas(2)
     .WaitFor(kafka);
 builder.Build().Run();

@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Aspire.Confluent.Kafka" Version="13.0.1" />
+      <PackageReference Include="Aspire.Confluent.Kafka" Version="13.0.2" />
       <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
       <PackageReference Include="WolverineFx.Kafka" Version="5.5.0" />
     </ItemGroup>

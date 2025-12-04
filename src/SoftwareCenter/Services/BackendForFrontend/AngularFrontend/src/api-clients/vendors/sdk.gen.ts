@@ -2,8 +2,10 @@
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
 import type {
-  PostApiSoftwareVendorsData,
-  PostApiSoftwareVendorsResponses,
+  GetApiVendorsData,
+  GetApiVendorsResponses,
+  PostApiVendorsData,
+  PostApiVendorsResponses,
 } from './types.gen';
 
 export type Options<
@@ -23,20 +25,29 @@ export type Options<
   meta?: Record<string, unknown>;
 };
 
+export const getApiVendors = <ThrowOnError extends boolean = true>(
+  options?: Options<GetApiVendorsData, ThrowOnError>,
+) =>
+  (options?.client ?? client).get<
+    GetApiVendorsResponses,
+    unknown,
+    ThrowOnError
+  >({ url: '/api/vendors/', ...options });
+
 /**
  * POST /vendors
  *
  * Allows a manager to add a new vendor to the system.
  */
-export const postApiSoftwareVendors = <ThrowOnError extends boolean = true>(
-  options: Options<PostApiSoftwareVendorsData, ThrowOnError>,
+export const postApiVendors = <ThrowOnError extends boolean = true>(
+  options: Options<PostApiVendorsData, ThrowOnError>,
 ) =>
   (options.client ?? client).post<
-    PostApiSoftwareVendorsResponses,
+    PostApiVendorsResponses,
     unknown,
     ThrowOnError
   >({
-    url: '/api/software/vendors',
+    url: '/api/vendors/',
     ...options,
     headers: {
       'Content-Type': 'application/json',
