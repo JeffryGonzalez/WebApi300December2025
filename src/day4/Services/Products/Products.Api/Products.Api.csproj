@@ -9,7 +9,7 @@
 
     </PropertyGroup>
     <PropertyGroup>
-        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+<!--        <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>-->
         <!-- <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath> -->
     </PropertyGroup>
     <ItemGroup>
@@ -19,11 +19,11 @@
 
     <ItemGroup>
         <PackageReference Include="Aspire.Npgsql" Version="13.0.1" />
-        <PackageReference Include="Facet" Version="5.1.8" />
-        <PackageReference Include="Facet.Extensions" Version="5.1.8" />
+        <PackageReference Include="Facet" Version="5.1.9" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
-        <PackageReference Include="WolverineFx.Marten" Version="5.4.0" />
+        <PackageReference Include="WolverineFx.Kafka" Version="5.5.0" />
+        <PackageReference Include="WolverineFx.Marten" Version="5.5.0" />
     </ItemGroup>
 
     <ItemGroup>

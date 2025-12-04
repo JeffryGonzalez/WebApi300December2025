@@ -4,7 +4,12 @@ using Products.Api.Endpoints.Management.ReadModels;
 
 namespace Products.Api.Endpoints.Services;
 
-public class UserInfoProvider(IDocumentSession session, IHttpContextAccessor httpContextAccessor)
+public interface IProvideUserInfo
+{
+    Task<UserInfo> GetUserInfoAsync();
+}
+
+public class UserInfoProvider(IDocumentSession session, IHttpContextAccessor httpContextAccessor) : IProvideUserInfo
 {
     public async Task<UserInfo> GetUserInfoAsync()
     {

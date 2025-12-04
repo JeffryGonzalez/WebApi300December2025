@@ -11,7 +11,7 @@ namespace Products.Api.Endpoints.Management.Operations;
 public static class GetManagerSummary
 {
     // todo: Pick up here tomorrow, show how to do the "Load" thing without Wolverine.
-    public static async Task<Results<Ok<ManagerSummary>, NotFound>> GetCurrentManagerSummary(UserInfoProvider userInfoProvider,
+    public static async Task<Results<Ok<ManagerSummary>, NotFound>> GetCurrentManagerSummary(IProvideUserInfo userInfoProvider,
         IDocumentSession session)
     {
         var currentUser = await userInfoProvider.GetUserInfoAsync();

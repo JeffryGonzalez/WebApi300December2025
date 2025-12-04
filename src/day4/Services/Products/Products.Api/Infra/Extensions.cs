@@ -8,6 +8,7 @@ using Products.Api.Endpoints.Management.Handlers;
 using Products.Api.Endpoints.Management.ReadModels;
 using Wolverine;
 using Wolverine.Marten;
+using Wolverine.Transports.Tcp;
 
 namespace Products.Api.Infra;
 
@@ -23,6 +24,8 @@ public static class Extensions
             builder.Host.UseWolverine((options) =>
             {
                 options.Policies.AutoApplyTransactions();
+                options.ListenAtPort(4203).Named("taco");
+
             }); // have to change the mode for this.
             builder.Services.AddMarten(options =>
                 {

@@ -10,7 +10,7 @@ public static class ApiExtensions
     {
         public IServiceCollection AddProducts()
         {
-            services.AddScoped<UserInfoProvider>();
+            services.AddScoped<IProvideUserInfo, UserInfoProvider>();
             return services;
         }
     }
