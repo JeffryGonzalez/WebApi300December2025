@@ -18,12 +18,9 @@ public static class PostProduct
     )
     {
         var sub = httpContextAccessor.CallersSubject;
-        if (sub is null)
-        {
-            return TypedResults.Unauthorized();
-        }
-        var command = new CreateProduct(Guid.NewGuid(), request.Name, request.Price, request.Qty,sub);
-      
+        if (sub is null) return TypedResults.Unauthorized();
+        var command = new CreateProduct(Guid.NewGuid(), request.Name, request.Price, request.Qty, sub);
+
         await messaging.InvokeAsync(command); // Blocks until that command returns.
         // I want to return the "Real" product details here.
         // I want to be able to query the database for the current state of this product you just added.

@@ -19,18 +19,16 @@ public static class Extensions
 
     extension(WebApplicationBuilder builder)
     {
-        
         public WebApplicationBuilder AddPersistenceAndMessaging(string dataSourceName)
         {
             builder.AddNpgsqlDataSource(dataSourceName);
             builder.Host.UseWolverine((options) =>
             {
-                options.Discovery.IncludeAssembly(typeof(Products.Api.Messaging.OrderDocumentHandlers).Assembly);
+                options.Discovery.IncludeAssembly(typeof(OrderDocumentHandlers).Assembly);
                 options.Policies.AutoApplyTransactions();
 
-        
-                Console.WriteLine(options.DescribeHandlerMatch(typeof(OrderDocumentHandlers)));
 
+                Console.WriteLine(options.DescribeHandlerMatch(typeof(OrderDocumentHandlers)));
             }); // have to change the mode for this.
             builder.Services.AddMarten(options =>
                 {
@@ -38,7 +36,6 @@ public static class Extensions
                     options.Projections.Add<ProductReadModelProjection>(ProjectionLifecycle.Inline);
                     options.Projections.Snapshot<InventoryChangeReport>(SnapshotLifecycle.Async);
                     options.Projections.Add<ManagerSummaryProjection>(ProjectionLifecycle.Async);
-
                 }).UseNpgsqlDataSource().UseLightweightSessions().IntegrateWithWolverine()
                 .AddAsyncDaemon(JasperFx.Events.Daemon.DaemonMode.Solo); // turns on the background worker
             return builder;
@@ -51,7 +48,6 @@ public static class Extensions
             {
                 corsOptions.AddPolicy(CorsPolicyName, pol =>
                 {
-                  
                     pol.WithOrigins("http://localhost:9561", "http://localhost");
                     pol.AllowAnyHeader();
                     pol.AllowAnyMethod();
@@ -117,10 +113,7 @@ public static class Extensions
     {
         public string? CallersSubject
         {
-            get
-            {
-                return accessor.HttpContext?.User.FindFirst(c => c.Type == "sub")?.Value!;
-            }
+            get { return accessor.HttpContext?.User.FindFirst(c => c.Type == "sub")?.Value!; }
         }
     }
 }

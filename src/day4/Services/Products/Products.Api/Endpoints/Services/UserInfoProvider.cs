@@ -20,7 +20,7 @@ public class UserInfoProvider(IDocumentSession session, IHttpContextAccessor htt
 
         if (info is not null) return info;
 
-        var userId = Guid.NewGuid(); 
+        var userId = Guid.NewGuid();
         session.Events.StartStream(userId, new UserCreated(userId, sub));
         await session.SaveChangesAsync();
         return new UserInfo

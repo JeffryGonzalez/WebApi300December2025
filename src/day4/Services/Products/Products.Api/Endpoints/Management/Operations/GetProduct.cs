@@ -7,10 +7,10 @@ namespace Products.Api.Endpoints.Management.Operations;
 public static class GetProduct
 {
     public static async Task<Results<Ok<ProductDetails>, NotFound>> ByIdAsync(
-        Guid id, 
+        Guid id,
         IDocumentSession session,
         IHttpContextAccessor context
-        )
+    )
     {
         var readModel = await session.Events.FetchLatest<ProductDetails>(id);
         return readModel switch
